@@ -49,27 +49,69 @@ const domBuilder = {
         //location dropdown
         let locationSelect = document.createElement("select");
         //pull JSON places to populate the dropdown location choices.
-        data.getData()
+        data.getPlacesData()
         .then(allPlaces => {
             // console.log(allPlaces) worked!
             allPlaces.forEach(place => {
                 let dropdownChoice = document.createElement("option");
-                dropdownChoice.setAttribute = ("id", "dropdown-choice--")
+                dropdownChoice.setAttribute = ("id", "dropdown-choice--");
                 dropdownChoice.setAttribute = ("value", `${place.name}`);
                 dropdownChoice.innerHTML = `${place.name}`
                 locationSelect.appendChild(dropdownChoice);
                 poiContainer.appendChild(locationSelect);
+            });
+        });
+
+        //interests display container
+        let interestContainer = document.createElement("article")
+        htmlContainer.appendChild(interestContainer);
+
+        //populate the dom with interests from the JSON
+        data.getInterestsData()
+        .then(allInterests => {
+            let interestsFragment = document.createDocumentFragment()
+            allInterests.forEach(interest => {
+
+                //display div
+                let interestDisplaySection = document.createElement("section");
+                interestDisplaySection.setAttribute("id", "interest--display--section");
+                // interestsFragment.apprenticeChild(interestDisplaySection);
+
+                //interest name display
+                let interestNameDisplay = document.createElement("h2");
+                interestNameDisplay.setAttribute = ("id", "interest--display--${name}");
+                interestNameDisplay.innerHTML = interest.poi;
+                interestDisplaySection.appendChild(interestNameDisplay);
+
+                //description display
+                let descriptionNameDisplay = document.createElement("p");
+                descriptionNameDisplay.setAttribute("id", "interest--display--${description}");
+                descriptionNameDisplay.innerHTML = interest.description;
+                interestDisplaySection.appendChild(descriptionNameDisplay);
+
+                //cost display
+                let costNameDisplay = document.createElement("p");
+                costNameDisplay.setAttribute("id", "interest--display--${cost}");
+                costNameDisplay.innerHTML = interest.cost;
+                interestDisplaySection.appendChild(costNameDisplay);
+                //location display
+                let locationNameDisplay = document.createElement("p");
+                locationNameDisplay.setAttribute("id", "interest--display--${location}");
+                locationNameDisplay.innerHTML = interest.location;
+                interestDisplaySection.appendChild(locationNameDisplay);
+
+                interestsFragment.appendChild(interestDisplaySection);
             })
-        })
+            interestContainer.appendChild(interestsFragment);
+        });
 
         //add button
         let submitButton = document.createElement("button");
         submitButton.setAttribute("id", "submitButton--interests");
         submitButton.textContent = "Submit"
         poiContainer.appendChild(submitButton);
-        //add event listener
+        //add button event listener
         submitButton.addEventListener("click", () => {
-            // console.log("test");
             let newInterestObject = {
                 poi: nameInput.value,
                 description: descriptionInput.value,
@@ -88,7 +130,7 @@ const domBuilder = {
         editButton.setAttribute("id", "editButton--interests");
         editButton.textContent = "Edit"
         poiContainer.appendChild(editButton);
-        //edit event listener
+        //edit button event listener
         editButton.addEventListener("click", () => {
             console.log("test");
         });

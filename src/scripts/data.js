@@ -1,14 +1,21 @@
 //fetch calls for JSON
 
 const data = {
-    //get complete database
-    getData(data) {
+
+    getPlacesData(data) {
+        //GET places object
         return fetch("http://localhost:8088/places")
         .then(response => response.json())
     },
 
+    getInterestsData() {
+        return fetch("http://localhost:8088/interests")
+        .then(response => response.json())
+    },
+    // GET interests object
+
     postNewInterest(newInterestToPost) {
-        //post new entry
+        //POST new entry
         fetch("http://localhost:8088/interests", {
         method: "POST",
         headers: {
