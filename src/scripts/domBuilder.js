@@ -1,4 +1,7 @@
+import data from "./data"
+
 //build form HTML in DOM when page is loaded
+//to do: add review on reload, edit button and functionality, add button to reload page on click
 
 const domBuilder = {
 
@@ -44,37 +47,94 @@ const domBuilder = {
         poiContainer.appendChild(costInput);
 
         //location dropdown
-
         let locationSelect = document.createElement("select");
+        //pull JSON places to populate the dropdown location choices.
+        data.getPlacesData()
+        .then(allPlaces => {
+            // console.log(allPlaces) worked!
+            allPlaces.forEach(place => {
+                let dropdownChoice = document.createElement("option");
+                dropdownChoice.setAttribute = ("id", "dropdown-choice--");
+                dropdownChoice.setAttribute = ("value", `${place.name}`);
+                dropdownChoice.innerHTML = `${place.name}`
+                locationSelect.appendChild(dropdownChoice);
+                poiContainer.appendChild(locationSelect);
+            });
+        });
 
-        let dropdownChoice = document.createElement("option");
-        dropdownChoice.setAttribute = ("value", "city");
-        dropdownChoice.innerHTML = "City"
+        //interests display container
+        let interestContainer = document.createElement("article")
+        htmlContainer.appendChild(interestContainer);
 
-        let dropdownChoice2 = document.createElement("option");
-        dropdownChoice2.setAttribute = ("value", "place");
-        dropdownChoice2.innerHTML = "Place"
+        //appends the DOM
+        htmlContainer = " "
+        data.getInterestsData()
+        .then(allInterests => {
+            let interestsFragment = document.createDocumentFragment()
+            allInterests.forEach(interest => {
 
-        locationSelect.appendChild(dropdownChoice);
-        locationSelect.appendChild(dropdownChoice2);
-        poiContainer.appendChild(locationSelect);
+                //display div
+                let interestDisplaySection = document.createElement("section");
+                interestDisplaySection.setAttribute("id", "interest--display--section");
+                // interestsFragment.apprenticeChild(interestDisplaySection);
+
+                //interest name display
+                let interestNameDisplay = document.createElement("h2");
+                interestNameDisplay.setAttribute = ("id", "interest--display--${name}");
+                interestNameDisplay.innerHTML = interest.poi;
+                interestDisplaySection.appendChild(interestNameDisplay);
+
+                //description display
+                let descriptionNameDisplay = document.createElement("p");
+                descriptionNameDisplay.setAttribute("id", "interest--display--${description}");
+                descriptionNameDisplay.innerHTML = interest.description;
+                interestDisplaySection.appendChild(descriptionNameDisplay);
+
+                //cost display
+                let costNameDisplay = document.createElement("p");
+                costNameDisplay.setAttribute("id", "interest--display--${cost}");
+                costNameDisplay.innerHTML = interest.cost;
+                interestDisplaySection.appendChild(costNameDisplay);
+                //location display
+                let locationNameDisplay = document.createElement("p");
+                locationNameDisplay.setAttribute("id", "interest--display--${location}");
+                locationNameDisplay.innerHTML = interest.location;
+                interestDisplaySection.appendChild(locationNameDisplay);
+
+                interestsFragment.appendChild(interestDisplaySection);
+
+            })
+            interestContainer.appendChild(interestsFragment);
+        });
 
         //add button
         let submitButton = document.createElement("button");
         submitButton.setAttribute("id", "submitButton--interests");
         submitButton.textContent = "Submit"
         poiContainer.appendChild(submitButton);
-        //add event listener
+
+
+        //add button event listener
         submitButton.addEventListener("click", () => {
-            console.log("test");
+            let newInterestObject = {
+                poi: nameInput.value,
+                description: descriptionInput.value,
+                cost: costInput.value,
+                location: locationSelect.value
+            }
+            console.log(newInterestObject);
+            data.postNewInterest(newInterestObject)
+                .then(() => {
+
+                })
         });
 
-        //edit button
+        //edit button (TO DO w/ edit fetch)
         let editButton = document.createElement("button");
         editButton.setAttribute("id", "editButton--interests");
         editButton.textContent = "Edit"
         poiContainer.appendChild(editButton);
-        //edit event listener
+        //edit button event listener
         editButton.addEventListener("click", () => {
             console.log("test");
         });
