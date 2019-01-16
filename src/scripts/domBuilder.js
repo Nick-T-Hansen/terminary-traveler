@@ -1,4 +1,7 @@
+import data from "./data"
+
 //build form HTML in DOM when page is loaded
+
 
 const domBuilder = {
 
@@ -44,20 +47,20 @@ const domBuilder = {
         poiContainer.appendChild(costInput);
 
         //location dropdown
-
         let locationSelect = document.createElement("select");
-
-        let dropdownChoice = document.createElement("option");
-        dropdownChoice.setAttribute = ("value", "city");
-        dropdownChoice.innerHTML = "City"
-
-        let dropdownChoice2 = document.createElement("option");
-        dropdownChoice2.setAttribute = ("value", "place");
-        dropdownChoice2.innerHTML = "Place"
-
-        locationSelect.appendChild(dropdownChoice);
-        locationSelect.appendChild(dropdownChoice2);
-        poiContainer.appendChild(locationSelect);
+        //pull JSON places to populate the dropdown location choices.
+        data.getData()
+        .then(allPlaces => {
+            // console.log(allPlaces) worked!
+            allPlaces.forEach(place => {
+                let dropdownChoice = document.createElement("option");
+                dropdownChoice.setAttribute = ("id", "dropdown-choice--")
+                dropdownChoice.setAttribute = ("value", `${place.name}`);
+                dropdownChoice.innerHTML = `${place.name}`
+                locationSelect.appendChild(dropdownChoice);
+                poiContainer.appendChild(locationSelect);
+            })
+        })
 
         //add button
         let submitButton = document.createElement("button");
@@ -66,8 +69,19 @@ const domBuilder = {
         poiContainer.appendChild(submitButton);
         //add event listener
         submitButton.addEventListener("click", () => {
-            console.log("test");
+            // console.log("test");
+            let newInterestObject = {
+                poi: nameInput.value,
+                description: descriptionInput.value,
+                cost: costInput.value,
+                location: locationSelect.value
+            }
+            console.log(newInterestObject)
+            data.postNewInterest(newInterestObject)
         });
+
+        //append dom from JSON
+
 
         //edit button
         let editButton = document.createElement("button");
