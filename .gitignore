@@ -1,4 +1,5 @@
 node_modules
+database.json
 public/*.js
 bower_components
 __pycache__
