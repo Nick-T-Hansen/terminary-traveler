@@ -1,7 +1,7 @@
 import data from "./data"
 
 //build form HTML in DOM when page is loaded
-
+//to do: add review on reload, edit button and functionality, add button to reload page on click
 
 const domBuilder = {
 
@@ -66,7 +66,8 @@ const domBuilder = {
         let interestContainer = document.createElement("article")
         htmlContainer.appendChild(interestContainer);
 
-        //populate the dom with interests from the JSON
+        //appends the DOM
+        htmlContainer = " "
         data.getInterestsData()
         .then(allInterests => {
             let interestsFragment = document.createDocumentFragment()
@@ -101,6 +102,7 @@ const domBuilder = {
                 interestDisplaySection.appendChild(locationNameDisplay);
 
                 interestsFragment.appendChild(interestDisplaySection);
+
             })
             interestContainer.appendChild(interestsFragment);
         });
@@ -110,6 +112,8 @@ const domBuilder = {
         submitButton.setAttribute("id", "submitButton--interests");
         submitButton.textContent = "Submit"
         poiContainer.appendChild(submitButton);
+
+
         //add button event listener
         submitButton.addEventListener("click", () => {
             let newInterestObject = {
@@ -118,14 +122,14 @@ const domBuilder = {
                 cost: costInput.value,
                 location: locationSelect.value
             }
-            console.log(newInterestObject)
+            console.log(newInterestObject);
             data.postNewInterest(newInterestObject)
+                .then(() => {
+
+                })
         });
 
-        //append dom from JSON
-
-
-        //edit button
+        //edit button (TO DO w/ edit fetch)
         let editButton = document.createElement("button");
         editButton.setAttribute("id", "editButton--interests");
         editButton.textContent = "Edit"
