@@ -1,7 +1,9 @@
 import data from "./data"
+import eventListeners from "./eventListeners"
 
 //build form HTML in DOM when page is loaded
 //to do: add review on reload, edit button and functionality, add button to reload page on click
+//event listener issues- cant target the id on 23 and others of that type, and cant target null error.
 
 const domBuilder = {
 
@@ -48,6 +50,7 @@ const domBuilder = {
 
         //location dropdown
         let locationSelect = document.createElement("select");
+        locationSelect.setAttribute ("id", "location--select");
         //pull JSON places to populate the dropdown location choices.
         data.getPlacesData()
         .then(allPlaces => {
@@ -62,12 +65,14 @@ const domBuilder = {
             });
         });
 
+
+
         //interests display container
         let interestContainer = document.createElement("article")
+        interestContainer.setAttribute = ("id", "interest--container")
         htmlContainer.appendChild(interestContainer);
 
         //appends the DOM
-        htmlContainer = " "
         data.getInterestsData()
         .then(allInterests => {
             let interestsFragment = document.createDocumentFragment()
@@ -95,11 +100,15 @@ const domBuilder = {
                 costNameDisplay.setAttribute("id", "interest--display--${cost}");
                 costNameDisplay.innerHTML = interest.cost;
                 interestDisplaySection.appendChild(costNameDisplay);
+
                 //location display
                 let locationNameDisplay = document.createElement("p");
                 locationNameDisplay.setAttribute("id", "interest--display--${location}");
                 locationNameDisplay.innerHTML = interest.location;
                 interestDisplaySection.appendChild(locationNameDisplay);
+
+                //review display or review field
+                //submit button for review
 
                 interestsFragment.appendChild(interestDisplaySection);
 
@@ -113,21 +122,8 @@ const domBuilder = {
         submitButton.textContent = "Submit"
         poiContainer.appendChild(submitButton);
 
-
         //add button event listener
-        submitButton.addEventListener("click", () => {
-            let newInterestObject = {
-                poi: nameInput.value,
-                description: descriptionInput.value,
-                cost: costInput.value,
-                location: locationSelect.value
-            }
-            console.log(newInterestObject);
-            data.postNewInterest(newInterestObject)
-                .then(() => {
-
-                })
-        });
+        submitButton.addEventListener ("click", eventListeners.submitButtonEventListener())
 
         //edit button (TO DO w/ edit fetch)
         let editButton = document.createElement("button");
