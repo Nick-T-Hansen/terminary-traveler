@@ -1,8 +1,9 @@
 import data from "./data"
-import eventListeners from "./eventListeners"
+
 
 //build form HTML in DOM when page is loaded
 //to do: add review on reload, edit button and functionality, add button to reload page on click
+//input id's not showing
 
 const domBuilder = {
 
@@ -17,10 +18,10 @@ const domBuilder = {
         poiContainer.appendChild(nameInputLabel);
         //point of interest input
         let nameInput = document.createElement("input");
-        nameInput.setAttribute = ("input", "text");
+        nameInput.setAttribute = ("type", "text");
         //replace single quotes for fetch call
         nameInput.setAttribute = ("id", "input--poi");
-        nameInput.innerHTML = "Point of Interest";
+        nameInput.placeholder = "Where should I go?";
         poiContainer.appendChild(nameInput);
 
         //description label
@@ -29,10 +30,10 @@ const domBuilder = {
         poiContainer.appendChild(descriptionInputLabel);
         //description input
         let descriptionInput = document.createElement("input");
-        descriptionInput.setAttribute = ("input", "text");
+        descriptionInput.setAttribute = ("type", "text");
         //replace single quotes for fetch call
         descriptionInput.setAttribute = ("id", "input--description");
-        descriptionInput.innerHTML = "Point of Interest";
+        descriptionInput.placeholder = "What should I do?";
         poiContainer.appendChild(descriptionInput);
 
         //cost label
@@ -41,16 +42,16 @@ const domBuilder = {
         poiContainer.appendChild(costInputLabel);
         //cost input
         let costInput = document.createElement("input");
-        costInput.setAttribute = ("input", "text");
+        costInput.setAttribute = ("type", "text");
         //replace single quotes for fetch call
         costInput.setAttribute = ("id", "input--cost");
-        costInput.innerHTML = "Point of Interest";
+        costInput.placeholder = "What does it cost?";
         poiContainer.appendChild(costInput);
 
         //location dropdown
         let locationSelect = document.createElement("select");
         locationSelect.setAttribute ("id", "location--select");
-        //pull JSON places to populate the dropdown location choices.
+        //GET JSON places to populate the dropdown location  for the form.
         data.getPlacesData()
         .then(allPlaces => {
             // console.log(allPlaces) worked!
@@ -65,23 +66,14 @@ const domBuilder = {
         });
 
         //add button
+        //add button submits the interest choices and does a PUT to the JSON server.
         let submitButton = document.createElement("button");
         submitButton.setAttribute("id", "submitButton--interests");
         submitButton.textContent = "Submit"
         poiContainer.appendChild(submitButton);
-
         //add button event listener
-        submitButton.addEventListener ("click", eventListeners.submitButtonEventListener())
 
-        //edit button (TO DO w/ edit fetch)
-        let editButton = document.createElement("button");
-        editButton.setAttribute("id", "editButton--interests");
-        editButton.textContent = "Edit"
-        poiContainer.appendChild(editButton);
-        //edit button event listener
-        editButton.addEventListener("click", () => {
-            console.log("test");
-        });
+
     }
 }
 

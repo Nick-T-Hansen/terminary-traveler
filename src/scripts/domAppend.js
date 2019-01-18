@@ -4,6 +4,8 @@ import data from "./data"
 const appendInterests = {
 
     appendInterest() {
+    let htmlContainer = document.querySelector(".output");
+
     let interestContainer = document.createElement("article");
     interestContainer.setAttribute = ("id", "interest--container");
     htmlContainer.appendChild(interestContainer);
@@ -44,7 +46,21 @@ const appendInterests = {
                 interestDisplaySection.appendChild(locationNameDisplay);
 
                 //review display or review field
+                let locationReviewInput = document.createElement("input");
+                locationReviewInput.setAttribute("type", "text")
+                locationReviewInput.setAttribute("id", "interest--display--${review}");
+                locationReviewInput.placeholder = "Review your experience!";
+                interestDisplaySection.appendChild(locationReviewInput);
+
                 //submit button for review
+                let reviewButton = document.createElement("button");
+                reviewButton.setAttribute("id", "reviewButton--interests");
+                reviewButton.textContent = "Edit"
+                interestDisplaySection.appendChild(reviewButton);
+                //edit button event listener
+                reviewButton.addEventListener("click", () => {
+                    console.log("test");
+                });
 
                 interestsFragment.appendChild(interestDisplaySection);
 
