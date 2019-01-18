@@ -2,8 +2,10 @@ import data from "./data"
 
 
 //build form HTML in DOM when page is loaded
-//to do: add review on reload, edit button and functionality, add button to reload page on click
-//input id's not showing
+
+//input id's not showing in dom builder when inspecting, ma be the issue of my info not passing on submit.
+//unclear which fields need the ${} for the edit functionality- is it the fields apending to the dom? How do you name them without throwing errors? Do I need to pas an object into the domAppend?
+//why would my reviews not be shoing in the DOM?
 
 const domBuilder = {
 
