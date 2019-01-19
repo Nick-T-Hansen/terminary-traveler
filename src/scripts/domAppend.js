@@ -1,5 +1,6 @@
 //interests display container
 import data from "./data"
+import eventListeners from "./eventListeners";
 
 const appendInterests = {
 
@@ -7,8 +8,9 @@ const appendInterests = {
     let htmlContainer = document.querySelector(".output");
 
     let interestContainer = document.createElement("article");
-    interestContainer.setAttribute = ("id", "interest--container");
+    interestContainer.setAttribute("id", "interest--container");
     htmlContainer.appendChild(interestContainer);
+
 
         //appends the DOM
         data.getInterestsData()
@@ -30,25 +32,25 @@ const appendInterests = {
                 //description display
                 let descriptionNameDisplay = document.createElement("p");
                 descriptionNameDisplay.setAttribute("id", `interest--display--${interest.description}`);
-                descriptionNameDisplay.innerHTML = interest.description;
+                descriptionNameDisplay.textContent = interest.description;
                 interestDisplaySection.appendChild(descriptionNameDisplay);
 
                 //cost display
                 let costNameDisplay = document.createElement("p");
                 costNameDisplay.setAttribute("id", `interest--display--${interest.cost}`);
-                costNameDisplay.innerHTML = interest.cost;
+                costNameDisplay.textContent = interest.cost;
                 interestDisplaySection.appendChild(costNameDisplay);
 
                 //location display
                 let locationNameDisplay = document.createElement("p");
-                locationNameDisplay.setAttribute("id", `interest--display--${interest.location}`);
-                locationNameDisplay.innerHTML = interest.location;
+                locationNameDisplay.setAttribute("id", `interest--display--${interest.placeId}`);
+                locationNameDisplay.textContent = interest.placeId;
                 interestDisplaySection.appendChild(locationNameDisplay);
 
                 //review display or review field
                 let locationReviewInput = document.createElement("p");
                 locationReviewInput.setAttribute("id", `interest--display--${interest.review}`);
-                locationReviewInput.placeholder = interest.review;
+                locationReviewInput.textContent = interest.review;
                 interestDisplaySection.appendChild(locationReviewInput);
 
                 /*
@@ -60,29 +62,27 @@ const appendInterests = {
                 interestDisplaySection.appendChild(locationReviewInput);
                 */
 
-                //submit button for review
+                //review
                 let reviewButton = document.createElement("button");
                 reviewButton.setAttribute("id", "reviewButton--interests");
-                reviewButton.textContent = "Edit Review"
+                reviewButton.textContent = "Write Review"
                 interestDisplaySection.appendChild(reviewButton);
                 //edit button event listener
-                reviewButton.addEventListener("click", () => {
-                    console.log("test");
-                });
+                // reviewButton.addEventListener("click", event.deleteButtonEventListener())
+
 
                 //delete button for saved interest
                 let deleteButton = document.createElement("button");
                 deleteButton.setAttribute("id", "deleteButton--interests");
                 deleteButton.textContent = "Delete Interest"
                 interestDisplaySection.appendChild(deleteButton);
-                //edit button event listener
-                deleteButton.addEventListener("click", () => {
-                    console.log("test");
-                });
+
+                //delete button event listener
+                deleteButton.addEventListener("click", eventListeners.deleteButtonEventListener());
 
                 interestsFragment.appendChild(interestDisplaySection);
+            });
 
-            })
             interestContainer.appendChild(interestsFragment);
         })
     }

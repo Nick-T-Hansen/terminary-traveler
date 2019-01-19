@@ -2,10 +2,10 @@ import data from "./data"
 
 
 //build form HTML in DOM when page is loaded
-
-//input id's not showing in dom builder when inspecting, ma be the issue of my info not passing on submit.
-//unclear which fields need the ${} for the edit functionality- is it the fields apending to the dom? How do you name them without throwing errors? Do I need to pas an object into the domAppend?
-//why would my reviews not be shoing in the DOM?
+//delete button is clicking on page load, and not on click
+//delete button is not refreshing the page
+//add expand relationship on data.getinterestdata() to get the location id
+//edit function is breaking code
 
 const domBuilder = {
 
@@ -20,9 +20,9 @@ const domBuilder = {
         poiContainer.appendChild(nameInputLabel);
         //point of interest input
         let nameInput = document.createElement("input");
-        nameInput.setAttribute = ("type", "text");
+        nameInput.setAttribute("type", "text");
         //replace single quotes for fetch call
-        nameInput.setAttribute = ("id", "input--poi");
+        nameInput.setAttribute("id", "input--poi");
         nameInput.placeholder = "Where should I go?";
         poiContainer.appendChild(nameInput);
 
@@ -32,9 +32,9 @@ const domBuilder = {
         poiContainer.appendChild(descriptionInputLabel);
         //description input
         let descriptionInput = document.createElement("input");
-        descriptionInput.setAttribute = ("type", "text");
+        descriptionInput.setAttribute("type", "text");
         //replace single quotes for fetch call
-        descriptionInput.setAttribute = ("id", "input--description");
+        descriptionInput.setAttribute("id", "input--description");
         descriptionInput.placeholder = "What should I do?";
         poiContainer.appendChild(descriptionInput);
 
@@ -44,23 +44,23 @@ const domBuilder = {
         poiContainer.appendChild(costInputLabel);
         //cost input
         let costInput = document.createElement("input");
-        costInput.setAttribute = ("type", "text");
+        costInput.setAttribute("type", "text");
         //replace single quotes for fetch call
-        costInput.setAttribute = ("id", "input--cost");
+        costInput.setAttribute("id", "input--cost");
         costInput.placeholder = "What does it cost?";
         poiContainer.appendChild(costInput);
 
         //location dropdown
         let locationSelect = document.createElement("select");
-        locationSelect.setAttribute ("id", "location--select");
+        locationSelect.setAttribute("id", "location--select");
         //GET JSON places to populate the dropdown location  for the form.
         data.getPlacesData()
         .then(allPlaces => {
             // console.log(allPlaces) worked!
             allPlaces.forEach(place => {
                 let dropdownChoice = document.createElement("option");
-                dropdownChoice.setAttribute = ("id", "dropdown-choice--");
-                dropdownChoice.setAttribute = ("value", `${place.name}`);
+                dropdownChoice.setAttribute("id", "dropdown-choice--");
+                dropdownChoice.setAttribute("value", `${place.name}`);
                 dropdownChoice.innerHTML = `${place.name}`
                 locationSelect.appendChild(dropdownChoice);
                 poiContainer.appendChild(locationSelect);
