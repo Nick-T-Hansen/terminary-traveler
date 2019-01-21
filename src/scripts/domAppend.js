@@ -25,7 +25,7 @@ const appendInterests = {
 
                 //interest name display
                 let interestNameDisplay = document.createElement("h2");
-                interestNameDisplay.setAttribute = ("id", `interest--display--${interest.name}`);
+                interestNameDisplay.setAttribute("id", `interest--display--${interest.name}`);
                 interestNameDisplay.innerHTML = interest.poi;
                 interestDisplaySection.appendChild(interestNameDisplay);
 
@@ -78,7 +78,7 @@ const appendInterests = {
                 interestDisplaySection.appendChild(deleteButton);
 
                 //delete button event listener
-                deleteButton.addEventListener("click", eventListeners.deleteButtonEventListener());
+                // deleteButton.addEventListener("click", eventListeners.deleteButtonEventListener());
 
                 interestsFragment.appendChild(interestDisplaySection);
             });

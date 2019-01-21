@@ -41,16 +41,16 @@ const eventListeners = {
     //         })
     // },
 
-    deleteButtonEventListener () {
-        if(confirm("Are you sure you want to delete this?") ){
-            let interestToDelete = event.target.parentNode.id.split("--")[3];
-            data.deleteInterest(interestToDelete)
-                .then (r => {
-                    //need dom to refresh after
-                    appendInterests.appendInterest();
-                })
-        }
-    }
+    // deleteButtonEventListener () {
+    //     if(confirm("Are you sure you want to delete this?") ){
+    //         let interestToDelete = event.target.parentNode.id.split("--")[3];
+    //         data.deleteInterest(interestToDelete)
+    //             .then (r => {
+    //                 //need dom to refresh after
+    //                 appendInterests.appendInterest();
+    //             })
+        // }
+    // }
 }
 
 export default eventListeners
