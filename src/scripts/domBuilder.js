@@ -1,11 +1,10 @@
 import data from "./data"
 
 
-//build form HTML in DOM when page is loaded
-//delete button is clicking on page load, and not on click
-//delete button is not refreshing the page
+//edit function is not selecting object correctly
+//delete button is not refreshing the page after delete prompt
 //add expand relationship on data.getinterestdata() to get the location id
-//edit function is breaking code
+
 
 const domBuilder = {
 
@@ -67,13 +66,12 @@ const domBuilder = {
             });
         });
 
-        //add button
         //add button submits the interest choices and does a PUT to the JSON server.
         let submitButton = document.createElement("button");
         submitButton.setAttribute("id", "submitButton--interests");
         submitButton.textContent = "Submit"
         poiContainer.appendChild(submitButton);
-        //add button event listener
+        //add button event listener in main.js
 
 
     }

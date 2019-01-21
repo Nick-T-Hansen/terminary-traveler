@@ -14,6 +14,11 @@ const data = {
     },
     // GET interests object DO LAST, expand for line 11
 
+    getInterestId(interestId) {
+        return fetch(`http://localhost:8088/interests/${interestId}`)
+        .then(response => response.json())
+    },
+
     postNewInterest(newInterestToPost) {
         //POST new entry
         return fetch("http://localhost:8088/interests", {
@@ -25,14 +30,24 @@ const data = {
         })
     },
 
-    deleteInterest(id) {
-        return fetch(`http://localhost:8088/interests/${id}`, {
+    deleteInterest(interestId) {
+        return fetch(`http://localhost:8088/interests/${interestId}`, {
           method: "DELETE",
           headers: {
               "Content-Type": "application/json"
           }
         })
       },
+
+      putEditInterest(interestId, interestToEdit) {
+        return fetch(`http://localhost:8088/interests/${interestId}`, {
+          method: "PUT",
+          headers: {
+              "Content-Type": "application/json"
+          },
+          body: JSON.stringify(interestToEdit)
+        })
+    }
 }
 
 export default data

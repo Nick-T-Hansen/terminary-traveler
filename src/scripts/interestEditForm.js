@@ -1,54 +1,98 @@
+import data from "./data";
+import appendInterests from "./domAppend";
+
 // clear the specific div for editing and populate with the edit form
 
-interestEditForm = {
+const interestEditForm = {
 
-    createAndAppendForm() {
-        // document.querySelector(`#${editId}`);
-        //i think this goes at the bottom of the page, it is line 57 in fridgify
-
-        let interestContainer = document.createElement("article");
-        interestContainer.setAttribute("id", "interest--container");
-        htmlContainer.appendChild(interestContainer);
-
-        //display div
-        let interestDisplaySection = document.createElement("section");
-        interestDisplaySection.setAttribute("id", `interest--display--section--${interest.id}`);
-        // interestsFragment.apprenticeChild(interestDisplaySection);
+    createAndAppendForm(interestDomArticle, editInterestObject) {
 
         //interest name display
-        let interestNameDisplay = document.createElement("h2");
-        interestNameDisplay.setAttribute = ("id", `interest--display--${interest.name}`);
-        interestNameDisplay.textContent = interest.poi;
-        interestDisplaySection.appendChild(interestNameDisplay);
+        let editNameField = document.createElement("p")
+
+        let editNameLabel = document.createElement("label")
+        editNameLabel.textContent = "Interest"
+        let editNameInput = document.createElement("input")
+        editNameInput.value = editInterestObject.poi
+
+        editNameField.appendChild(editNameLabel)
+        editNameField.appendChild(editNameInput)
 
         //description display
-        let descriptionNameDisplay = document.createElement("p");
-        descriptionNameDisplay.setAttribute("id", `interest--display--${interest.description}`);
-        descriptionNameDisplay.textContent = interest.description;
-        interestDisplaySection.appendChild(descriptionNameDisplay);
+        let editDescriptionField = document.createElement("p")
+
+        let editDescriptionLabel = document.createElement("label")
+        editDescriptionLabel.textContent = "Description"
+        let editDescriptionInput = document.createElement("input")
+        editDescriptionInput.value = editInterestObject.description
+
+        editDescriptionField.appendChild(editDescriptionLabel)
+        editDescriptionField.appendChild(editDescriptionInput)
 
         //cost display which can be edited
-        let costNameDisplay = document.createElement("input");
-        costNameDisplay.setAttribute("id", `interest--display--${interest.cost}`);
-        costNameDisplay.setAttribute("type", "text");
-        costNameDisplay.placeholder = interest.cost;
-        interestDisplaySection.appendChild(costNameDisplay);
+        let editCostField = document.createElement("p")
+
+        let editCostLabel = document.createElement("label")
+        editCostLabel.textContent = "Cost"
+        let editCostInput = document.createElement("input")
+        editCostInput.value = editInterestObject.cost
+
+        editCostField.appendChild(editCostLabel)
+        editCostField.appendChild(editCostInput)
 
         //location display
-        let locationNameDisplay = document.createElement("p");
-        locationNameDisplay.setAttribute("id", `interest--display--${interest.placeId}`);
-        locationNameDisplay.textContent = interest.placeId;
-        interestDisplaySection.appendChild(locationNameDisplay);
+        let editLocationField = document.createElement("p")
+
+        let editLocationLabel = document.createElement("label")
+        editLocationLabel.textContent = "Location"
+        let editLocationInput = document.createElement("input")
+        editLocationInput.value = editInterestObject.location
+
+        editLocationField.appendChild(editLocationLabel)
+        editLocationField.appendChild(editLocationInput)
 
         //review display which can be edited
-        let locationReviewInput = document.createElement("input");
-        locationReviewInput.setAttribute("id", `interest--display--${interest.review}`);
-        locationReviewInput.setAttribute("type", "text")
-        locationReviewInput.textContent = interest.review;
-        interestDisplaySection.appendChild(locationReviewInput);
+        let editReviewField = document.createElement("p")
+
+        let editReviewLabel = document.createElement("label")
+        editReviewLabel.textContent = "Review"
+        let editReviewInput = document.createElement("input")
+        editReviewInput.value = editInterestObject.review
+
+        editReviewField.appendChild(editReviewLabel)
+        editReviewField.appendChild(editReviewInput)
+
+        //build an object which contains the new interest in the form, object is passed in post request to the JSON
+        let newInterestDomArticle = document.querySelector(`#${interestDomArticle}`);
+
+        newInterestDomArticle.innerHTML = " ";
 
         //submit changes button
+        let submitChangesButton = document.createElement("button")
+        submitChangesButton.textContent = "Submit Changes"
+
+        newInterestDomArticle.appendChild(editNameField)
+        newInterestDomArticle.appendChild(editDescriptionField)
+        newInterestDomArticle.appendChild(editCostField)
+        newInterestDomArticle.appendChild(editLocationField)
+        newInterestDomArticle.appendChild(editReviewField)
+        newInterestDomArticle.appendChild(submitChangesButton)
+
+        // button event listener which updates the code
+        submitChangesButton.addEventListener("click", () => {
+            let modifiedInterestObject = {
+                poi: editNameInput.value,
+                description: editDescriptionInput.value,
+                cost: editCostInput.value,
+                location: editLocationInput.value,
+                review: editReviewInput.value
+            }
+            console.log(modifiedInterestObject);
+            data.putEditInterest(editInterestObject.id, modifiedInterestObject)
+                .then (r => {
+                    appendInterests.appendInterest();
+                })
+        })
     }
 }
-
 export default interestEditForm
