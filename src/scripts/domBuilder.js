@@ -1,10 +1,9 @@
 import data from "./data"
 
-
-//edit function is not selecting object correctly
-//delete button is not refreshing the page after delete prompt
-//add expand relationship on data.getinterestdata() to get the location id
-
+/*TO DO
+edit function only available for cost and review
+add expand relationship on data.getinterestdata() to get the location id
+*/
 
 const domBuilder = {
 

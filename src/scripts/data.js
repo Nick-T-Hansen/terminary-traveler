@@ -12,7 +12,7 @@ const data = {
         return fetch("http://localhost:8088/interests")
         .then(response => response.json())
     },
-    // GET interests object DO LAST, expand for line 11
+    // GET interests object DO LAST, expand for line 11 http://localhost:8088/interest?_expand=place
 
     getInterestId(interestId) {
         return fetch(`http://localhost:8088/interests/${interestId}`)
@@ -20,7 +20,6 @@ const data = {
     },
 
     postNewInterest(newInterestToPost) {
-        //POST new entry
         return fetch("http://localhost:8088/interests", {
         method: "POST",
         headers: {
