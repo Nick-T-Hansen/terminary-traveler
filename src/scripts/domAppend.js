@@ -15,7 +15,7 @@ const appendInterests = {
 
     let interestContainer = document.createElement("article");
     interestContainer.setAttribute("id", "interest--container");
-    // interestContainer.innerHTML = " ";
+
     htmlContainer.appendChild(interestContainer);
 
         //appends the DOM
@@ -27,7 +27,6 @@ const appendInterests = {
                 //display div
                 let interestDisplaySection = document.createElement("section");
                 interestDisplaySection.setAttribute("id", `interest--display--section--${interest.id}`);
-                // interestsFragment.apprenticeChild(interestDisplaySection);
 
                 //interest name display
                 let interestNameDisplay = document.createElement("h2");
@@ -62,11 +61,10 @@ const appendInterests = {
                 //edit button (includes review fields)
                 let editButton = document.createElement("button");
                 editButton.setAttribute("id", "editButton--interests");
-                editButton.textContent = "Write Review and Edit Interest"
+                editButton.textContent = "Edit Interest"
                 interestDisplaySection.appendChild(editButton);
                 //edit button event listener
                 editButton.addEventListener("click", eventListeners.editButtonEventListener)
-
 
                 //delete button for saved interest
                 let deleteButton = document.createElement("button");

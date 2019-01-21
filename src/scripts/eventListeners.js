@@ -23,7 +23,8 @@ const eventListeners = {
             description: getDescriptionInput,
             cost: getCostInput,
             location: getLocationSelect,
-            review: "No Review Available. Write One Now!"
+            review: "You have not reviewed your experience.",
+            placeId: " "
         };
         console.log(newInterestObject);
 
