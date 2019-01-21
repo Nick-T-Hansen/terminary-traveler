@@ -1,4 +1,5 @@
 import data from "./data";
+import appendInterests from "./domAppend";
 
 // clear the specific div for editing and populate with the edit form
 
@@ -12,7 +13,7 @@ const interestEditForm = {
         let editNameLabel = document.createElement("label")
         editNameLabel.textContent = "Interest"
         let editNameInput = document.createElement("input")
-        editNameInput.value = editInterestObject.name
+        editNameInput.value = editInterestObject.poi
 
         editNameField.appendChild(editNameLabel)
         editNameField.appendChild(editNameInput)
@@ -61,9 +62,21 @@ const interestEditForm = {
         editReviewField.appendChild(editReviewLabel)
         editReviewField.appendChild(editReviewInput)
 
+        //build an object which contains the new interest in the form, object is passed in post request to the JSON
+        let newInterestDomArticle = document.querySelector(`#${interestDomArticle}`);
+
+        newInterestDomArticle.innerHTML = " ";
+
         //submit changes button
         let submitChangesButton = document.createElement("button")
         submitChangesButton.textContent = "Submit Changes"
+
+        newInterestDomArticle.appendChild(editNameField)
+        newInterestDomArticle.appendChild(editDescriptionField)
+        newInterestDomArticle.appendChild(editCostField)
+        newInterestDomArticle.appendChild(editLocationField)
+        newInterestDomArticle.appendChild(editReviewField)
+        newInterestDomArticle.appendChild(submitChangesButton)
 
         // button event listener which updates the code
         submitChangesButton.addEventListener("click", () => {
@@ -74,23 +87,12 @@ const interestEditForm = {
                 location: editLocationInput.value,
                 review: editReviewInput.value
             }
-            data.putEditInterest(modifiedInterestObject, editInterestObject.id)
+            console.log(modifiedInterestObject);
+            data.putEditInterest(editInterestObject.id, modifiedInterestObject)
+                .then (r => {
+                    appendInterests.appendInterest();
+                })
         })
-        //build an object which contains the food item in the form, object is passed in post request to the JSON
-        console.log(interestDomArticle);
-        let newInterestDomArticle = document.querySelector(`#${interestDomArticle}`);
-
-
-        newInterestDomArticle.innerHTML = " ";
-
-        newInterestDomArticle.appendChild(editNameField)
-        newInterestDomArticle.appendChild(editDescriptionField)
-        newInterestDomArticle.appendChild(editCostField)
-        newInterestDomArticle.appendChild(editLocationField)
-        newInterestDomArticle.appendChild(editReviewField)
-        newInterestDomArticle.appendChild(submitChangesButton)
-
     }
 }
-
 export default interestEditForm

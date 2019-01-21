@@ -54,7 +54,8 @@ const eventListeners = {
                     appendInterests.appendInterest();
                 })
         }
-    }
+    },
+
 }
 
 export default eventListeners
