@@ -1,16 +1,22 @@
 //interests display container
 import data from "./data"
-import eventListeners from "./eventListeners";
+import eventListeners from "./eventListeners"
+// import interestEditForm from "./interestEditForm"
 
 const appendInterests = {
 
     appendInterest() {
     let htmlContainer = document.querySelector(".output");
+    let removeInterestContainer = document.querySelector("#interest--container")
+
+    if(removeInterestContainer !== null)  {
+        htmlContainer.removeChild(removeInterestContainer)
+    };
 
     let interestContainer = document.createElement("article");
     interestContainer.setAttribute("id", "interest--container");
+    // interestContainer.innerHTML = " ";
     htmlContainer.appendChild(interestContainer);
-
 
         //appends the DOM
         data.getInterestsData()
@@ -53,22 +59,13 @@ const appendInterests = {
                 locationReviewInput.textContent = interest.review;
                 interestDisplaySection.appendChild(locationReviewInput);
 
-                /*
-                review display or review field
-                let locationReviewInput = document.createElement("input");
-                locationReviewInput.setAttribute("type", "text")
-                locationReviewInput.setAttribute("id", `interest--display--${interest.review}`);
-                locationReviewInput.placeholder = "Review your experience!";
-                interestDisplaySection.appendChild(locationReviewInput);
-                */
-
-                //review
-                let reviewButton = document.createElement("button");
-                reviewButton.setAttribute("id", "reviewButton--interests");
-                reviewButton.textContent = "Write Review"
-                interestDisplaySection.appendChild(reviewButton);
+                //edit button (includes review fields)
+                let editButton = document.createElement("button");
+                editButton.setAttribute("id", "editButton--interests");
+                editButton.textContent = "Write Review and Edit Interest"
+                interestDisplaySection.appendChild(editButton);
                 //edit button event listener
-                // reviewButton.addEventListener("click", event.deleteButtonEventListener())
+                editButton.addEventListener("click", eventListeners.editButtonEventListener)
 
 
                 //delete button for saved interest
@@ -78,7 +75,7 @@ const appendInterests = {
                 interestDisplaySection.appendChild(deleteButton);
 
                 //delete button event listener
-                // deleteButton.addEventListener("click", eventListeners.deleteButtonEventListener());
+                deleteButton.addEventListener("click", eventListeners.deleteButtonEventListener)
 
                 interestsFragment.appendChild(interestDisplaySection);
             });

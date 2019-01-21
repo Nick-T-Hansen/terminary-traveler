@@ -1,8 +1,8 @@
 
 import appendInterests from "./domAppend";
 import data from "./data"
-import domBuilder from "./domBuilder";
-// import interestEditForm from "./interestEditForm"
+// import domBuilder from "./domBuilder";
+import interestEditForm from "./interestEditForm"
 
 
 const eventListeners = {
@@ -22,8 +22,8 @@ const eventListeners = {
             poi: getNameInput,
             description: getDescriptionInput,
             cost: getCostInput,
-            location: getLocationSelect
-            //review add here
+            location: getLocationSelect,
+            review: "No Review Available. Write One Now!"
         };
         console.log(newInterestObject);
 
@@ -32,25 +32,29 @@ const eventListeners = {
                 appendInterests.appendInterest()
             });
     },
-    // editButtonEventListener () {
-    //     let getEditObjectId = event.target.parentNode.id
-    //     let editId = getEditObjectId.split("--")[3];
-    //     data.getInterestsData(editId)
-    //         .then(r => {
-    //             interestEditForm.createAndAppendForm(getEditObjectId, editId)
-    //         })
-    // },
+    editButtonEventListener () {
+        let interestDomArticle = event.target.parentNode.id
+        let editId = interestDomArticle.split("--")[3];
+        data.getInterestId(editId)
+            .then(response => {
+                console.log(interestDomArticle)
+                console.log(response)
+                interestEditForm.createAndAppendForm(interestDomArticle, response)
+            })
+    },
 
-    // deleteButtonEventListener () {
-    //     if(confirm("Are you sure you want to delete this?") ){
-    //         let interestToDelete = event.target.parentNode.id.split("--")[3];
-    //         data.deleteInterest(interestToDelete)
-    //             .then (r => {
-    //                 //need dom to refresh after
-    //                 appendInterests.appendInterest();
-    //             })
-        // }
-    // }
+    deleteButtonEventListener () {
+        if(confirm("Are you sure you want to delete this?") ){
+            let interestToDelete = event.target.parentNode.id
+            let interestToDeleteId = interestToDelete.split("--")[3];
+            console.log(interestToDeleteId)
+            data.deleteInterest(interestToDeleteId)
+                .then (r => {
+                    //need dom to refresh after
+                    appendInterests.appendInterest();
+                })
+        }
+    }
 }
 
 export default eventListeners
